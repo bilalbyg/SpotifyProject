@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
@@ -18,24 +20,48 @@ namespace Business.Concrete
             _songDal = songDal;
         }
 
-        public List<Song> GetAll()
+        public IDataResult<List<Song>> GetAll()
         {
-            return _songDal.GetAll();
+            if(DateTime.Now.Hour == 23)
+            {
+                return new ErrorDataResult<List<Song>>(Messages.MaintenanceTime);
+            }
+
+                return new SuccessDataResult<List<Song>>(_songDal.GetAll(), Messages.SongsListed);
+
+            
         }
 
-        public List<Song> GetAllByCategoryId(int id)
+        public IDataResult<List<Song>> GetAllByCategoryId(int id)
         {
-            return _songDal.GetAll(s=>s.CategoryId==id);
+            return new SuccessDataResult<List<Song>>(_songDal.GetAll(s => s.CategoryId == id));
         }
 
-        public List<Song> GetAllByArtistId(int id)
+        public IDataResult<List<Song>> GetAllByArtistId(int id)
         {
-            return _songDal.GetAll(s=>s.ArtistId==id);
+            return new SuccessDataResult<List<Song>>(_songDal.GetAll(s => s.ArtistId == id));
         }
 
-        public List<SongDetailDto> GetSongDetails()
+        public IDataResult<List<SongDetailDto>> GetSongDetails()
+            
         {
-            return _songDal.GetSongDetails();
+            return new SuccessDataResult<List<SongDetailDto>>(_songDal.GetSongDetails());
         }
+
+        public IResult Add(Song song)
+        {
+            if(song.SongName.Length < 1)
+            {
+                return new ErrorResult(Messages.SongAddFailed);
+            }
+            _songDal.Add(song);
+            return new SuccessResult(Messages.SongAdded);
+        }
+
+        public IDataResult<Song> GetById(int id)
+        {
+            return new SuccessDataResult<Song>(_songDal.Get(s => s.SongId == id)); 
+        }
+
     }
 }

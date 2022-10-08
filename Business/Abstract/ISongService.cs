@@ -1,4 +1,5 @@
-﻿using Entities.Concrete;
+﻿using Core.Utilities.Results;
+using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,13 @@ namespace Business.Abstract
 {
     public interface ISongService
     {
-        List<Song> GetAll();
-        List<Song> GetAllByCategoryId(int id);
-        List<Song> GetAllByArtistId(int id);
-        List<SongDetailDto> GetSongDetails();
+        IDataResult<List<Song>> GetAll();
+        IDataResult<List<Song>> GetAllByCategoryId(int id);
+        IDataResult<List<Song>> GetAllByArtistId(int id);
+        IDataResult<List<SongDetailDto>> GetSongDetails();
+        IDataResult<Song> GetById(int id);
+        IResult Add(Song song);
+
+        
     }
 }

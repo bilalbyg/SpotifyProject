@@ -27,10 +27,19 @@ namespace ConsoleUI
         {
             SongManager songManager = new SongManager(new EfSongDal());
 
-            foreach (var song in songManager.GetSongDetails())
+            var result = songManager.GetSongDetails();
+            if (result.Success == true)
             {
-                Console.WriteLine(song.SongName + "/" + song.ArtistName);
+                foreach (var song in result.Data)
+                {
+                    Console.WriteLine(song.SongName + "/" + song.ArtistName);
+                }
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+
         }
     }
 }
