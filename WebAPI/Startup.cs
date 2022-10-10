@@ -30,8 +30,8 @@ namespace WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton<ISongService, SongManager>();
-            services.AddSingleton<ISongDal, EfSongDal>();
+            //services.AddSingleton<ISongService, SongManager>();
+            //services.AddSingleton<ISongDal, EfSongDal>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

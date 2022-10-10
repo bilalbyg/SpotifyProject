@@ -1,10 +1,13 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 using Entities.DTOs;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -50,10 +53,10 @@ namespace Business.Concrete
 
         public IResult Add(Song song)
         {
-            if(song.SongName.Length < 1)
-            {
-                return new ErrorResult(Messages.SongAddFailed);
-            }
+
+
+            ValidationTool.Validate(new SongValidator(), song);
+
             _songDal.Add(song);
             return new SuccessResult(Messages.SongAdded);
         }

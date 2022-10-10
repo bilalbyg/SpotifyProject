@@ -11,5 +11,6 @@ namespace Business.Constants
         public static string SongsListed = "Songs listed";
         public static string MaintenanceTime = "Maintenance Time";
 
+        public static string SongDurationInvalid { get; internal set; }
     }
 }
