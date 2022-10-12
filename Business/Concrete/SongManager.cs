@@ -1,7 +1,10 @@
 ﻿using Business.Abstract;
+using Business.CCC;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.InMemory;
@@ -17,7 +20,6 @@ namespace Business.Concrete
     public class SongManager : ISongService
     {
         ISongDal _songDal;
-
         public SongManager(ISongDal songDal)
         {
             _songDal = songDal;
@@ -51,14 +53,13 @@ namespace Business.Concrete
             return new SuccessDataResult<List<SongDetailDto>>(_songDal.GetSongDetails());
         }
 
+        //[ValidationAspect(typeof(SongValidator))]
         public IResult Add(Song song)
         {
-
-
-            ValidationTool.Validate(new SongValidator(), song);
-
-            _songDal.Add(song);
-            return new SuccessResult(Messages.SongAdded);
+                BusinessRules.Run();
+                _songDal.Add(song);
+                return new SuccessResult(Messages.SongAdded);
+ 
         }
 
         public IDataResult<Song> GetById(int id)
@@ -66,5 +67,9 @@ namespace Business.Concrete
             return new SuccessDataResult<Song>(_songDal.Get(s => s.SongId == id)); 
         }
 
+        public IResult Update(Song song)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

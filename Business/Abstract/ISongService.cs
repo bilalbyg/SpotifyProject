@@ -15,6 +15,7 @@ namespace Business.Abstract
         IDataResult<List<SongDetailDto>> GetSongDetails();
         IDataResult<Song> GetById(int id);
         IResult Add(Song song);
+        IResult Update(Song song);
 
         
     }

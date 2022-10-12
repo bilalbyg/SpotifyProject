@@ -14,14 +14,14 @@ namespace ConsoleUI
             //ArtistTest();
         }
 
-        private static void ArtistTest()
-        {
-            ArtistManager artistManager = new ArtistManager(new EfArtistDal());
-            foreach (var artist in artistManager.GetAll())
-            {
-                Console.WriteLine(artist.ArtistName);
-            }
-        }
+        //private static void ArtistTest()
+        //{
+        //    ArtistManager artistManager = new ArtistManager(new EfArtistDal());
+        //    foreach (var artist in artistManager.GetAll())
+        //    {
+        //        Console.WriteLine(artist.ArtistName);
+        //    }
+        //}
 
         private static void SongTest()
         {

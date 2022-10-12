@@ -9,8 +9,12 @@ namespace Business.Constants
         public static string SongAdded = "Song added";
         public static string SongAddFailed = "Song add failed";
         public static string SongsListed = "Songs listed";
+        public static string ArtistsListed = "Artists listed";
         public static string MaintenanceTime = "Maintenance Time";
 
-        public static string SongDurationInvalid { get; internal set; }
+        public static string SongDurationInvalid = "";
+        public static string ArtistNameAlreadyExists = "Artist name already exists.";
+
+        public static string ArtistAdded = "Artist added";
     }
 }
